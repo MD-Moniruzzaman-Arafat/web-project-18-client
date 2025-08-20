@@ -1,3 +1,4 @@
+import { Link } from 'react-router'
 import logo from '../../assets/logo.svg'
 import Menu from './Menu'
 
@@ -46,7 +47,9 @@ export default function Navbar() {
             </ul>
           </div>
           <div className="navbar-end">
-            <a className="btn bg-[#EB662B] text-white px-8">Login</a>
+            <Link to="/loginPage" className="btn bg-[#EB662B] text-white px-8">
+              Login
+            </Link>
           </div>
         </div>
       </div>
