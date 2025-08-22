@@ -8,7 +8,7 @@ export default function Menu() {
         <a>All Tourists Spot</a>
       </li>
       <li>
-        <a>Add Tourists Spot</a>
+        <a href="/addTouristsSpotPage">Add Tourists Spot</a>
       </li>
       <li>
         <a>My List</a>
