@@ -5,7 +5,7 @@ export default function Menu() {
         <a>Home</a>
       </li>
       <li>
-        <a>All Tourists Spot</a>
+        <a href="/allTouristsSpotPage">All Tourists Spot</a>
       </li>
       <li>
         <a href="/addTouristsSpotPage">Add Tourists Spot</a>
