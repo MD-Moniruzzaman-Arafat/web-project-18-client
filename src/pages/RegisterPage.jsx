@@ -9,7 +9,8 @@ export default function RegisterPage() {
     password: '',
   })
 
-  const { createUser } = useContext(AuthContext)
+  const { createUser, setIsRegistered, updateUserProfile } =
+    useContext(AuthContext)
 
   // handle change function
   function handleChange(event) {
@@ -24,12 +25,10 @@ export default function RegisterPage() {
   async function handleSubmit(event) {
     event.preventDefault()
     // Perform registration logic here
+    setIsRegistered(true)
     try {
-      const response = await createUser(
-        registerData.email,
-        registerData.password
-      )
-      console.log(response)
+      await createUser(registerData.email, registerData.password)
+      await updateUserProfile(registerData.name, registerData.photoUrl)
     } catch (error) {
       console.error('Error registering user:', error)
     }

@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { AuthContext } from '.'
@@ -12,6 +13,7 @@ import auth from '../firebase/firebaseConfig'
 
 export default function AuthContextProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null)
+  const [isRegistered, setIsRegistered] = useState(false)
 
   const googleProvider = new GoogleAuthProvider()
 
@@ -23,6 +25,16 @@ export default function AuthContextProvider({ children }) {
   // Sign in an existing user
   async function signInUser(email, password) {
     return signInWithEmailAndPassword(auth, email, password)
+  }
+
+  // update user profile
+  async function updateUserProfile(displayName, photoURL) {
+    if (!currentUser) return
+
+    return updateProfile(auth.currentUser, {
+      displayName: displayName,
+      photoURL: photoURL,
+    })
   }
 
   // Sign in with Google
@@ -37,7 +49,7 @@ export default function AuthContextProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
+      if (user && !isRegistered) {
         // User is signed in
         setCurrentUser(user)
       } else {
@@ -47,7 +59,9 @@ export default function AuthContextProvider({ children }) {
     })
 
     return () => unsubscribe()
-  }, [])
+  }, [isRegistered])
+
+  console.log(currentUser)
 
   return (
     <>
@@ -58,6 +72,8 @@ export default function AuthContextProvider({ children }) {
           signInWithGoogle,
           signOutUser,
           currentUser,
+          setIsRegistered,
+          updateUserProfile,
         }}
       >
         {children}
