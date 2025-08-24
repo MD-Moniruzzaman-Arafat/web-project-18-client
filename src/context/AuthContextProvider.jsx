@@ -18,20 +18,31 @@ export default function AuthContextProvider({ children }) {
   const googleProvider = new GoogleAuthProvider()
 
   // Create a new user
-  async function createUser(email, password) {
-    return createUserWithEmailAndPassword(auth, email, password)
+  async function createUser(email, password, displayName, photoURL) {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    )
+    const user = userCredential.user
+    await updateProfile(user, {
+      displayName: displayName,
+      photoURL: photoURL,
+    })
+    return user
   }
 
   // Sign in an existing user
   async function signInUser(email, password) {
-    return signInWithEmailAndPassword(auth, email, password)
+    const user = await signInWithEmailAndPassword(auth, email, password)
+    return user
   }
 
   // update user profile
-  async function updateUserProfile(displayName, photoURL) {
-    if (!currentUser) return
+  async function updateUserProfile(currentUser, displayName, photoURL) {
+    // if (!currentUser) return
 
-    return updateProfile(auth.currentUser, {
+    return updateProfile(currentUser, {
       displayName: displayName,
       photoURL: photoURL,
     })
@@ -52,6 +63,7 @@ export default function AuthContextProvider({ children }) {
       if (user && !isRegistered) {
         // User is signed in
         setCurrentUser(user)
+        console.log(currentUser)
       } else {
         // User is signed out
         setCurrentUser(null)
@@ -60,8 +72,6 @@ export default function AuthContextProvider({ children }) {
 
     return () => unsubscribe()
   }, [isRegistered])
-
-  console.log(currentUser)
 
   return (
     <>

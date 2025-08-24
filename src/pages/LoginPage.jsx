@@ -1,6 +1,36 @@
+import { useContext, useState } from 'react'
 import { Link } from 'react-router'
+import { AuthContext } from '../context'
 
 export default function LoginPage() {
+  const [loginData, setLoginData] = useState({
+    email: '',
+    password: '',
+  })
+
+  const { signInUser, setIsRegistered } = useContext(AuthContext)
+
+  function handleChange(event) {
+    const { name, value } = event.target
+    setLoginData({
+      ...loginData,
+      [name]: value,
+    })
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault()
+    // Perform login logic here
+    setIsRegistered(false)
+    // console.log('Login Data:', loginData)
+    try {
+      const res = await signInUser(loginData.email, loginData.password)
+      console.log('Login Response:', res)
+    } catch (error) {
+      console.error('Error logging in:', error)
+    }
+  }
+
   return (
     <>
       <div className="flex items-center justify-center h-screen">
@@ -8,10 +38,13 @@ export default function LoginPage() {
           <h1 className="font-bold text-white text-3xl text-center">
             Login Page
           </h1>
-          <form>
+          <form onSubmit={handleSubmit}>
             <fieldset className="fieldset lg:min-w-96 ">
               <legend className="fieldset-legend text-white">Email</legend>
               <input
+                name="email"
+                onChange={handleChange}
+                value={loginData.email}
                 type="email"
                 className="input w-full"
                 placeholder="write valid email"
@@ -21,6 +54,9 @@ export default function LoginPage() {
             <fieldset className="fieldset lg:min-w-96">
               <legend className="fieldset-legend text-white">Password</legend>
               <input
+                name="password"
+                onChange={handleChange}
+                value={loginData.password}
                 type="password"
                 className="input w-full"
                 placeholder="write valid password"
