@@ -1,17 +1,19 @@
+import { Link } from 'react-router'
+
 export default function Menu() {
   return (
     <>
       <li>
-        <a>Home</a>
+        <Link to={'/'}>Home</Link>
       </li>
       <li>
-        <a href="/allTouristsSpotPage">All Tourists Spot</a>
+        <Link to={'/allTouristsSpotPage'}>All Tourists Spot</Link>
       </li>
       <li>
-        <a href="/addTouristsSpotPage">Add Tourists Spot</a>
+        <Link to={'/addTouristsSpotPage'}>Add Tourists Spot</Link>
       </li>
       <li>
-        <a>My List</a>
+        <Link to={'/myListPage'}>My List</Link>
       </li>
     </>
   )

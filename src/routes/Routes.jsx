@@ -4,6 +4,7 @@ import AddTouristsSpotPage from '../pages/AddTouristsSpotPage'
 import AllTouristsSpotPage from '../pages/AllTouristsSpotPage'
 import HomePage from '../pages/HomePage'
 import LoginPage from '../pages/LoginPage'
+import MyListPage from '../pages/MyListPage'
 import RegisterPage from '../pages/RegisterPage'
 
 const router = createBrowserRouter([
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: '/allTouristsSpotPage',
         element: <AllTouristsSpotPage />,
+      },
+      {
+        path: '/myListPage',
+        element: <MyListPage />,
       },
     ],
   },
