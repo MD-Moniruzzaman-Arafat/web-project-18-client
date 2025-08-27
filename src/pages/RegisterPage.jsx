@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router'
 import { AuthContext } from '../context'
 
 export default function RegisterPage() {
@@ -8,6 +9,8 @@ export default function RegisterPage() {
     photoUrl: '',
     password: '',
   })
+
+  const navigate = useNavigate()
 
   const { createUser, setIsRegistered } = useContext(AuthContext)
 
@@ -26,12 +29,15 @@ export default function RegisterPage() {
     // Perform registration logic here
     setIsRegistered(true)
     try {
-      await createUser(
+      const res = await createUser(
         registerData.email,
         registerData.password,
         registerData.name,
         registerData.photoUrl
       )
+      if (res.email) {
+        navigate('/loginPage')
+      }
     } catch (error) {
       console.error('Error registering user:', error)
     }
@@ -99,9 +105,12 @@ export default function RegisterPage() {
           <p className="text-center text-white mt-5">
             <small>
               don't have an account?{' '}
-              <a href="/loginPage" className="border-b-1 text-black font-bold">
+              <Link
+                to={'/loginPage'}
+                className="border-b-1 text-black font-bold"
+              >
                 Login
-              </a>
+              </Link>
             </small>
           </p>
         </div>

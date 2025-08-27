@@ -6,6 +6,7 @@ import HomePage from '../pages/HomePage'
 import LoginPage from '../pages/LoginPage'
 import MyListPage from '../pages/MyListPage'
 import RegisterPage from '../pages/RegisterPage'
+import PrivateRoute from './PrivateRoute'
 
 const router = createBrowserRouter([
   {
@@ -26,15 +27,27 @@ const router = createBrowserRouter([
       },
       {
         path: '/addTouristsSpotPage',
-        element: <AddTouristsSpotPage />,
+        element: (
+          <PrivateRoute>
+            <AddTouristsSpotPage />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/allTouristsSpotPage',
-        element: <AllTouristsSpotPage />,
+        element: (
+          <PrivateRoute>
+            <AllTouristsSpotPage />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/myListPage',
-        element: <MyListPage />,
+        element: (
+          <PrivateRoute>
+            <MyListPage />
+          </PrivateRoute>
+        ),
       },
     ],
   },

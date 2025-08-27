@@ -1,8 +1,21 @@
+import { useContext } from 'react'
 import { Link } from 'react-router'
 import logo from '../../assets/logo.svg'
+import { AuthContext } from '../../context'
 import Menu from './Menu'
 
 export default function Navbar() {
+  const { currentUser, signOutUser } = useContext(AuthContext)
+
+  async function handleLogout() {
+    // Perform logout logic here
+    try {
+      await signOutUser()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <>
       <div className="container mx-auto">
@@ -47,9 +60,44 @@ export default function Navbar() {
             </ul>
           </div>
           <div className="navbar-end">
-            <Link to="/loginPage" className="btn bg-[#EB662B] text-white px-8">
-              Login
-            </Link>
+            {currentUser ? (
+              <>
+                <div className="dropdown dropdown-end">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    className="btn btn-ghost btn-circle avatar"
+                  >
+                    <div className="w-10 rounded-full">
+                      <img alt="profile Logo" src={currentUser.photoURL} />
+                    </div>
+                  </div>
+                  <ul
+                    tabIndex={0}
+                    className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+                  >
+                    <li>
+                      <a className="justify-between">
+                        Name
+                        <span className="badge">{currentUser.displayName}</span>
+                      </a>
+                    </li>
+                    <li>
+                      <Link onClick={handleLogout} to="/loginPage">
+                        Logout
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </>
+            ) : (
+              <Link
+                to="/loginPage"
+                className="btn bg-[#EB662B] text-white px-8"
+              >
+                Login
+              </Link>
+            )}
           </div>
         </div>
       </div>

@@ -63,7 +63,6 @@ export default function AuthContextProvider({ children }) {
       if (user && !isRegistered) {
         // User is signed in
         setCurrentUser(user)
-        console.log(currentUser)
       } else {
         // User is signed out
         setCurrentUser(null)

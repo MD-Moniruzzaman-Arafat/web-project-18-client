@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import { Link } from 'react-router'
+import { Link, useLocation, useNavigate } from 'react-router'
 import { AuthContext } from '../context'
 
 export default function LoginPage() {
@@ -8,6 +8,8 @@ export default function LoginPage() {
     password: '',
   })
 
+  const navigate = useNavigate()
+  const location = useLocation()
   const { signInUser, setIsRegistered } = useContext(AuthContext)
 
   function handleChange(event) {
@@ -25,7 +27,9 @@ export default function LoginPage() {
     // console.log('Login Data:', loginData)
     try {
       const res = await signInUser(loginData.email, loginData.password)
-      console.log('Login Response:', res)
+      if (res.user) {
+        navigate(location.state || '/')
+      }
     } catch (error) {
       console.error('Error logging in:', error)
     }
