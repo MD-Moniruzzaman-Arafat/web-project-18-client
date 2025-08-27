@@ -14,6 +14,7 @@ import auth from '../firebase/firebaseConfig'
 export default function AuthContextProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null)
   const [isRegistered, setIsRegistered] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   const googleProvider = new GoogleAuthProvider()
 
@@ -63,14 +64,20 @@ export default function AuthContextProvider({ children }) {
       if (user && !isRegistered) {
         // User is signed in
         setCurrentUser(user)
+        setLoading(false)
       } else {
         // User is signed out
         setCurrentUser(null)
+        setLoading(false)
       }
     })
 
     return () => unsubscribe()
   }, [isRegistered])
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <>
