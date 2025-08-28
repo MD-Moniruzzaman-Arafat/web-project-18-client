@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router'
+import { allTouristSpots } from '../api'
 import Root from '../layouts/Root'
 import AddTouristsSpotPage from '../pages/AddTouristsSpotPage'
 import AllTouristsSpotPage from '../pages/AllTouristsSpotPage'
@@ -40,6 +41,7 @@ const router = createBrowserRouter([
             <AllTouristsSpotPage />
           </PrivateRoute>
         ),
+        loader: allTouristSpots,
       },
       {
         path: '/myListPage',

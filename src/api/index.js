@@ -4,4 +4,10 @@ async function allCountry() {
   return data
 }
 
-export { allCountry }
+async function allTouristSpots() {
+  const response = await fetch('http://localhost:3000/TouristsSpot')
+  const data = await response.json()
+  return data
+}
+
+export { allCountry, allTouristSpots }
