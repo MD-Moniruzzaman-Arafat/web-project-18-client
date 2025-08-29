@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { AuthContext } from '../context'
 
 export default function AddTouristsSpotPage() {
+  const { currentUser } = useContext(AuthContext)
   const [formData, setFormData] = useState({
     image: '',
     name: '',
@@ -11,9 +13,9 @@ export default function AddTouristsSpotPage() {
     seasonality: '',
     travelTime: '',
     totalVisitors: '',
-    email: '',
-    userName: '',
-    phoneNumber: '',
+    email: currentUser?.email || '',
+    userName: currentUser?.displayName || '',
+    phoneNumber: currentUser?.phone || '',
   })
 
   function handleChange(event) {
@@ -196,6 +198,7 @@ export default function AddTouristsSpotPage() {
                   User Email
                 </legend>
                 <input
+                  disabled
                   name="email"
                   onChange={handleChange}
                   value={formData.email}
@@ -210,6 +213,7 @@ export default function AddTouristsSpotPage() {
                   User Name
                 </legend>
                 <input
+                  disabled
                   name="userName"
                   onChange={handleChange}
                   value={formData.userName}
