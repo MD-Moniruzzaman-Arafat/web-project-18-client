@@ -18,6 +18,7 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <HomePage />,
+        loader: allTouristSpots,
       },
       {
         path: '/loginPage',
