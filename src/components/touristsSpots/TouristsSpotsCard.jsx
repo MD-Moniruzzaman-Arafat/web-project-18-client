@@ -1,3 +1,5 @@
+import { Link } from 'react-router'
+
 export default function TouristsSpotsCard({ spot }) {
   return (
     <>
@@ -9,7 +11,12 @@ export default function TouristsSpotsCard({ spot }) {
           <h2 className="card-title">{spot?.name}</h2>
           <p>{spot?.description}</p>
           <div className="card-actions justify-end">
-            <button className="btn btn-primary">View Details</button>
+            <Link
+              to={`/viewDetailsPage/${spot?._id}`}
+              className="btn btn-primary"
+            >
+              View Details
+            </Link>
           </div>
         </div>
       </div>

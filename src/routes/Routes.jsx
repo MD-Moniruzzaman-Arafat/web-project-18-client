@@ -7,6 +7,7 @@ import HomePage from '../pages/HomePage'
 import LoginPage from '../pages/LoginPage'
 import MyListPage from '../pages/MyListPage'
 import RegisterPage from '../pages/RegisterPage'
+import ViewDetailsPage from '../pages/ViewDetailsPage'
 import PrivateRoute from './PrivateRoute'
 
 const router = createBrowserRouter([
@@ -48,6 +49,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyListPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: '/viewDetailsPage/:id',
+        element: (
+          <PrivateRoute>
+            <ViewDetailsPage />
           </PrivateRoute>
         ),
       },
