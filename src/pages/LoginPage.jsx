@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react'
+import { FcGoogle } from 'react-icons/fc'
 import { Link, useLocation, useNavigate } from 'react-router'
 import { AuthContext } from '../context'
 
@@ -10,7 +11,8 @@ export default function LoginPage() {
 
   const navigate = useNavigate()
   const location = useLocation()
-  const { signInUser, setIsRegistered } = useContext(AuthContext)
+  const { signInUser, setIsRegistered, signInWithGoogle } =
+    useContext(AuthContext)
 
   function handleChange(event) {
     const { name, value } = event.target
@@ -32,6 +34,17 @@ export default function LoginPage() {
       }
     } catch (error) {
       console.error('Error logging in:', error)
+    }
+  }
+
+  async function handleGoogleSignIn() {
+    try {
+      const res = await signInWithGoogle()
+      if (res.user) {
+        navigate(location.state || '/')
+      }
+    } catch (error) {
+      console.error('Error signing in with Google:', error)
     }
   }
 
@@ -69,6 +82,9 @@ export default function LoginPage() {
             </fieldset>
             <button className="btn w-full mt-5">Login</button>
           </form>
+          <button onClick={handleGoogleSignIn} className="btn w-full mt-5">
+            <FcGoogle />
+          </button>
           <p className="text-center text-white mt-5">
             <small>
               don't have an account?{' '}
