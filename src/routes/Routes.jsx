@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router'
-import { allTouristSpots } from '../api'
+import { allTouristSpots, singleSpots } from '../api'
 import Root from '../layouts/Root'
 import AddTouristsSpotPage from '../pages/AddTouristsSpotPage'
 import AllTouristsSpotPage from '../pages/AllTouristsSpotPage'
@@ -60,6 +60,7 @@ const router = createBrowserRouter([
             <ViewDetailsPage />
           </PrivateRoute>
         ),
+        loader: singleSpots,
       },
     ],
   },
