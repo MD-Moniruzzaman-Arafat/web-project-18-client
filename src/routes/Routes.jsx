@@ -52,6 +52,7 @@ const router = createBrowserRouter([
             <MyListPage />
           </PrivateRoute>
         ),
+        loader: allTouristSpots,
       },
       {
         path: '/viewDetailsPage/:id',
