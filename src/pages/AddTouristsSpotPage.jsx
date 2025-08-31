@@ -53,9 +53,9 @@ export default function AddTouristsSpotPage() {
         seasonality: '',
         travelTime: '',
         totalVisitors: '',
-        email: '',
-        userName: '',
-        phoneNumber: '',
+        email: currentUser?.email || '',
+        userName: currentUser?.displayName || '',
+        phoneNumber: currentUser?.phone || '',
       })
     } catch (error) {
       console.error('Error submitting form:', error)

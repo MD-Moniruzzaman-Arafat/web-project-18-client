@@ -7,9 +7,7 @@ export default function MyListPage() {
   // const [myList, setMyList] = useState([])
   const data = useLoaderData()
   const { currentUser } = useContext(AuthContext)
-  const filteredList = data.filter(
-    (item) => item.user_email === currentUser.email
-  )
+  const filteredList = data.filter((item) => item.email === currentUser.email)
   // setMyList(filteredList)
   console.log(filteredList)
   console.log(currentUser.email)
